@@ -70,12 +70,13 @@ client.on("messageCreate", async (message) => {
   //Command
   const command = commands.find((cmd) => cmd.name === command1);
   if (command) {
-    if (command1 !== "test") {
+    if(message.channel.id === process.env.CHANNEL_COMMAND && command1 === "test") {
+      console.log("Not use Command!")
+    } else {
       command.execute(message, command1, command2, command3);
     }
   } else {
-    const chatManualCommand = process.env.CHANNEL_MANUAL_COMMAND;
-    message.reply(`คำสั่งผิดโปรดตรวจสอบที่นี้ 👉<#${chatManualCommand}>👈`);
+    message.reply(`คำสั่งผิดโปรดตรวจสอบที่นี้ 👉<#${process.env.CHANNEL_MANUAL_COMMAND}>👈`);
   }
 });
 

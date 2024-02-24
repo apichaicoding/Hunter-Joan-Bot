@@ -1,3 +1,4 @@
 .env
 creds.json
 firebase.js
+defaultSetData.js
