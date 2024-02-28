@@ -1,7 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();
 const { AttachmentBuilder } = require("discord.js");
 const { db } = require(process.env.FIREBASE_PATH);
-const { getCategory, createCustomCanvas, setEquipment } = require('../utils/functionHunterinfo');
+const {
+  getCategory,
+  createCustomCanvas,
+  setEquipment,
+  getCategorys,
+} = require("../utils/functionHunterinfo");
 
 module.exports = {
   name: "test",
@@ -12,41 +17,55 @@ module.exports = {
     // ดึง UID (User ID) ของผู้ใช้
     const uid = message.author.id;
 
-    const user = await db.collection("hunters").doc(uid).get();
-    const category = await db.collection("category").doc("equipment").get();
+    const getUser = await db.collection("hunters").doc(uid).get();
+    const getWeapon = await db.collection("category").doc("weapon").get();
+    const getElements = await db.collection("category").doc("elements").get();
+    const getEquipment = await db.collection("category").doc("equipment").get();
+    const getDecorations = await db
+      .collection("category")
+      .doc("decorations")
+      .get();
 
     try {
       let userExists = false;
-      let newUser;
+      let getUserNew;
 
-      if (!user.exists) {
-        await db.collection("hunters").doc(uid).set({
-          weapon: 1,
-          equipment: [0, 0, 0, 0, 0, 0],
-          decorations: [0, 0, 0, 0, 0, 0],
-          element: 0
-        });
-
-        newUser = await db.collection("hunters").doc(uid).get();
+      if (!getUser.exists) {
+        await db
+          .collection("hunters")
+          .doc(uid)
+          .set({
+            weapon: 1,
+            equipment: [0, 0, 0, 0, 0, 0],
+            decorations: [0, 0, 0, 0, 0, 0],
+            element: 0,
+          });
+        getUserNew = await db.collection("hunters").doc(uid).get();
       } else {
         userExists = true;
       }
 
       const { canvas, ctx } = createCustomCanvas("#f5cca0");
 
-      const result = getCategory(userExists ? user.data() : newUser.data(), category.data());
+      const { dataWeapon, dataElements, dataEquipment, dataDecorations } =
+        getCategorys(
+          userExists ? getUser.data() : getUserNew.data(),
+          getWeapon.data(),
+          getElements.data(),
+          getEquipment.data(),
+          getDecorations.data()
+        );
 
-      await setEquipment(canvas, ctx, 200, "#B4B4B8", result);
+      await setEquipment(canvas, ctx, "#B4B4B8", dataEquipment);
 
       message.reply({
         content: `**เรียน Hunter: ${message.member.displayName}**\nนี้คือข้อมูลของท่านค่ะ`,
         files: [new AttachmentBuilder(canvas.toBuffer(), "MHTH.png")],
       });
-
     } catch (error) {
       console.error(error);
       message.reply(
-        `**เกิดปัญหานิดหน่อย** รอคุณโจรดูให้ตอนนี้ตบมังกรดำอยู่ค่ะ`,
+        `**เกิดปัญหานิดหน่อย**\nรอคุณโจรดูให้ตอนนี้ตบมังกรดำอยู่ค่ะ`
       );
     }
   },

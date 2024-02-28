@@ -4,8 +4,52 @@ const { createCanvas, loadImage } = require("canvas");
 positionX6 = [150, 490, 830, 1170, 1510, 1850];
 
 //อ่านข้อมูล
+const getCategorys = (
+  getUser,
+  getWeapon,
+  getElements,
+  getEquipment,
+  getDecorations
+) => {
+  const dataWeapon = getWeapon[getUser.weapon[0]][getUser.weapon[1]];
+  const dataElements =
+    getElements[getUser.equipment] != null
+      ? getElements[getUser.equipment]
+      : "";
+  const dataEquipment = [
+    getEquipment.heads[getUser.equipment[0]],
+    getEquipment.arms[getUser.equipment[1]],
+    getEquipment.chests[getUser.equipment[2]],
+    getEquipment.waists[getUser.equipment[3]],
+    getEquipment.legs[getUser.equipment[4]],
+    getEquipment.talismans[getUser.equipment[5]],
+  ];
+  const dataDecorations = [
+    getDecorations[getUser.namedecorations[0]][getUser.decorations[0]] != null
+      ? getDecorations[getUser.namedecorations[0]][getUser.decorations[0]]
+      : "",
+    getDecorations[getUser.namedecorations[1]][getUser.decorations[1]] != null
+      ? getDecorations[getUser.namedecorations[1]][getUser.decorations[1]]
+      : "",
+    getDecorations[getUser.namedecorations[2]][getUser.decorations[2]] != null
+      ? getDecorations[getUser.namedecorations[2]][getUser.decorations[2]]
+      : "",
+    getDecorations[getUser.namedecorations[3]][getUser.decorations[3]] != null
+      ? getDecorations[getUser.namedecorations[3]][getUser.decorations[3]]
+      : "",
+    getDecorations[getUser.namedecorations[4]][getUser.decorations[4]] != null
+      ? getDecorations[getUser.namedecorations[4]][getUser.decorations[4]]
+      : "",
+    getDecorations[getUser.namedecorations[5]][getUser.decorations[5]] != null
+      ? getDecorations[getUser.namedecorations[5]][getUser.decorations[5]]
+      : "",
+  ];
+
+  return { dataWeapon, dataElements, dataEquipment, dataDecorations };
+};
+
 const getCategory = (user, category) => {
-  const result = [
+  const resultEquipment = [
     category.heads[user.equipment[0]],
     category.arms[user.equipment[1]],
     category.chests[user.equipment[2]],
@@ -13,7 +57,7 @@ const getCategory = (user, category) => {
     category.legs[user.equipment[4]],
     category.talismans[user.equipment[5]],
   ];
-  return result;
+  return resultEquipment;
 };
 
 //สร้าง canvas
@@ -115,18 +159,18 @@ const imageCategory = async (ctx, length, x, y, imageurl) => {
 };
 
 //รวม
-const setEquipment = async (canvas, ctx, length, backgraund, result) => {
+const setEquipment = async (canvas, ctx, backgraund, result) => {
   for (let index = 0; index < result.length; index++) {
     backgraundCategory(
       ctx,
-      length,
+      200,
       positionX6[index],
       canvas.height / 2,
       backgraund
     );
     await imageCategory(
       ctx,
-      length,
+      200,
       positionX6[index],
       canvas.height / 2,
       result[index]
@@ -138,4 +182,5 @@ module.exports = {
   getCategory,
   createCustomCanvas,
   setEquipment,
+  getCategorys,
 };
