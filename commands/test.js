@@ -2,10 +2,12 @@ require("dotenv").config();
 const { AttachmentBuilder } = require("discord.js");
 const { db } = require(process.env.FIREBASE_PATH);
 const {
-  getCategory,
   createCustomCanvas,
-  setEquipment,
   getCategorys,
+  setWeapon,
+  setElements,
+  setEquipment,
+  setDecorations,
 } = require("../utils/functionHunterinfo");
 
 module.exports = {
@@ -21,10 +23,7 @@ module.exports = {
     const getWeapon = await db.collection("category").doc("weapon").get();
     const getElements = await db.collection("category").doc("elements").get();
     const getEquipment = await db.collection("category").doc("equipment").get();
-    const getDecorations = await db
-      .collection("category")
-      .doc("decorations")
-      .get();
+    const getDecorations = await db.collection("category").doc("decorations").get();
 
     try {
       let userExists = false;
@@ -35,10 +34,18 @@ module.exports = {
           .collection("hunters")
           .doc(uid)
           .set({
-            weapon: 1,
+            weapon: ["greatswords", 1],
+            namedecorations: [
+              "slot1",
+              "slot1",
+              "slot1",
+              "slot1",
+              "slot1",
+              "slot1",
+            ],
             equipment: [0, 0, 0, 0, 0, 0],
             decorations: [0, 0, 0, 0, 0, 0],
-            element: 0,
+            element: "",
           });
         getUserNew = await db.collection("hunters").doc(uid).get();
       } else {
@@ -56,7 +63,13 @@ module.exports = {
           getDecorations.data()
         );
 
+      await setWeapon(canvas, ctx, "#B4B4B8", dataWeapon);
+      
+      await setElements(canvas, ctx, "#B4B4B8", dataElements);
+
       await setEquipment(canvas, ctx, "#B4B4B8", dataEquipment);
+
+      await setDecorations(canvas, ctx, "#B4B4B8", dataDecorations);
 
       message.reply({
         content: `**เรียน Hunter: ${message.member.displayName}**\nนี้คือข้อมูลของท่านค่ะ`,

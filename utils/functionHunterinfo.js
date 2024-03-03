@@ -12,10 +12,7 @@ const getCategorys = (
   getDecorations
 ) => {
   const dataWeapon = getWeapon[getUser.weapon[0]][getUser.weapon[1]];
-  const dataElements =
-    getElements[getUser.equipment] != null
-      ? getElements[getUser.equipment]
-      : "";
+  const dataElements = getElements[getUser.element];
   const dataEquipment = [
     getEquipment.heads[getUser.equipment[0]],
     getEquipment.arms[getUser.equipment[1]],
@@ -25,39 +22,15 @@ const getCategorys = (
     getEquipment.talismans[getUser.equipment[5]],
   ];
   const dataDecorations = [
-    getDecorations[getUser.namedecorations[0]][getUser.decorations[0]] != null
-      ? getDecorations[getUser.namedecorations[0]][getUser.decorations[0]]
-      : "",
-    getDecorations[getUser.namedecorations[1]][getUser.decorations[1]] != null
-      ? getDecorations[getUser.namedecorations[1]][getUser.decorations[1]]
-      : "",
-    getDecorations[getUser.namedecorations[2]][getUser.decorations[2]] != null
-      ? getDecorations[getUser.namedecorations[2]][getUser.decorations[2]]
-      : "",
-    getDecorations[getUser.namedecorations[3]][getUser.decorations[3]] != null
-      ? getDecorations[getUser.namedecorations[3]][getUser.decorations[3]]
-      : "",
-    getDecorations[getUser.namedecorations[4]][getUser.decorations[4]] != null
-      ? getDecorations[getUser.namedecorations[4]][getUser.decorations[4]]
-      : "",
-    getDecorations[getUser.namedecorations[5]][getUser.decorations[5]] != null
-      ? getDecorations[getUser.namedecorations[5]][getUser.decorations[5]]
-      : "",
+    getDecorations[getUser.namedecorations[0]][getUser.decorations[0]],
+    getDecorations[getUser.namedecorations[1]][getUser.decorations[1]],
+    getDecorations[getUser.namedecorations[2]][getUser.decorations[2]],
+    getDecorations[getUser.namedecorations[3]][getUser.decorations[3]],
+    getDecorations[getUser.namedecorations[4]][getUser.decorations[4]],
+    getDecorations[getUser.namedecorations[5]][getUser.decorations[5]],
   ];
 
   return { dataWeapon, dataElements, dataEquipment, dataDecorations };
-};
-
-const getCategory = (user, category) => {
-  const resultEquipment = [
-    category.heads[user.equipment[0]],
-    category.arms[user.equipment[1]],
-    category.chests[user.equipment[2]],
-    category.waists[user.equipment[3]],
-    category.legs[user.equipment[4]],
-    category.talismans[user.equipment[5]],
-  ];
-  return resultEquipment;
 };
 
 //สร้าง canvas
@@ -159,28 +132,63 @@ const imageCategory = async (ctx, length, x, y, imageurl) => {
 };
 
 //รวม
+const setWeapon = async (canvas, ctx, backgraund, result) => {
+  backgraundCategory(ctx, 300, 200, 200, backgraund);
+  await imageCategory(ctx, 300, 200, 200, result);
+};
+
+const setElements = async (canvas, ctx, backgraund, result) => {
+  backgraundCategory(ctx, 150, 475, 125, backgraund);
+  if (result !== "") {
+    await imageCategory(ctx, 150, 475, 125, result);
+  }
+};
+
 const setEquipment = async (canvas, ctx, backgraund, result) => {
   for (let index = 0; index < result.length; index++) {
     backgraundCategory(
       ctx,
       200,
       positionX6[index],
-      canvas.height / 2,
+      canvas.height / 2 + 100,
       backgraund
     );
     await imageCategory(
       ctx,
       200,
       positionX6[index],
-      canvas.height / 2,
+      canvas.height / 2 + 100,
       result[index]
     );
   }
 };
 
+const setDecorations = async (canvas, ctx, backgraund, result) => {
+  for (let index = 0; index < result.length; index++) {
+    backgraundCategory(
+      ctx,
+      200,
+      positionX6[index],
+      canvas.height / 2 + 350,
+      backgraund
+    );
+    if (result[index] !== "") {
+      await imageCategory(
+        ctx,
+        200,
+        positionX6[index],
+        canvas.height / 2 + 350,
+        result[index]
+      );
+    }
+  }
+};
+
 module.exports = {
-  getCategory,
   createCustomCanvas,
-  setEquipment,
   getCategorys,
+  setWeapon,
+  setElements,
+  setEquipment,
+  setDecorations,
 };
