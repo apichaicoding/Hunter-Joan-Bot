@@ -5,6 +5,10 @@ const { cardSkillArmLevel } = require('../utils/cardskillarmlevel');
 module.exports = {
   name: 'now',
   execute: async (message, value1, value2, value3) => {
+    value1 = value1.toLowerCase();
+    value2 = value2.toLowerCase();
+    value3 = value3.toLowerCase();
+    
     if (value2 == "skillarmor") {
       const filePathSearchskillarmor = path.join(__dirname, '../models/datasearchskillarmor.json');
       const filePathSkillarmor = path.join(__dirname, '../models/dataskillarmor.json');

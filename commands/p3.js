@@ -6,6 +6,10 @@ const { cardSkillArmPoint } = require('../utils/cardskillarmpoint');
 module.exports = {
   name: 'p3',
   execute: async (message, value1, value2, value3) => {
+    value1 = value1.toLowerCase();
+    value2 = value2.toLowerCase();
+    value3 = value3.toLowerCase();
+    
     if (value2 == "gh" || value2 == "va") {
       return await keyQuest(message, value1, value2, value3);
     } else if (value2 == "skillarmor") {

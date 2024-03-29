@@ -29,26 +29,27 @@ module.exports = (client) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
-    const command1 = args.shift().toLowerCase();
+    const command1 = args.shift();
     let command2 = "";
     let command3 = "";
 
     if (args.length >= 1) {
-      command2 = args[0].toLowerCase();
+      command2 = args[0];
     }
     if (args.length >= 2) {
-      command3 = args.slice(1).join(" ").toLowerCase();
+      command3 = args.slice(1).join(" ");
     }
 
     //Command
-    const command = commands.find((cmd) => cmd.name === command1);
+    const command = commands.find((cmd) => cmd.name === command1.toLowerCase());
 
     if (command) {
 
       if (
-        command1 !== "test" &&
-        command1 !== "shar-live" &&
-        command1 !== "shar-live-session"
+        command1.toLowerCase() !== "test" &&
+        command1.toLowerCase() !== "shar-live" &&
+        command1.toLowerCase() !== "shar-live-session" &&
+        command1.toLowerCase() !== "vote" 
       ) {
         command.execute(message, command1, command2, command3);
       } else if (
