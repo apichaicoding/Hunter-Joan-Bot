@@ -5,14 +5,13 @@ const { cardSkillArmPoint } = require('../utils/cardskillarmpoint');
 
 module.exports = {
   name: 'fu',
-  execute: async (message, value1, value2, value3) => {
-    value1 = value1.toLowerCase();
-    value2 = value2.toLowerCase();
-    value3 = value3.toLowerCase();
+  execute: async (message, command) => {
+    const mode = command[1].toLowerCase();
+    const search = command.slice(2).join(' ').toLowerCase();
     
-    if (value2 == "gh" || value2 == "va") {
+    if (mode == "gh" || mode == "va") {
       return;
-    } else if (value2 == "skillarmor") {
+    } else if (mode == "skillarmor") {
       const filePathSearchskillarmor = path.join(__dirname, '../models/datasearchskillarmor.json');
       const filePathSkillarmor = path.join(__dirname, '../models/dataskillarmor.json');
 
@@ -22,7 +21,7 @@ module.exports = {
         const searchSkilArmor = convertJsonSearchskillarmor.searchSkilArmorFU;
 
         for (const data of searchSkilArmor) {
-          if (value3 === data.name.toLowerCase()) {
+          if (search === data.name.toLowerCase()) {
             const rawdataSkillarmor = await fs.promises.readFile(filePathSkillarmor, 'utf-8');
             const convertJsonSkillarmor = JSON.parse(rawdataSkillarmor);
             const skilArmor = convertJsonSkillarmor.skilArmorFU;

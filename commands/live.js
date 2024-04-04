@@ -2,19 +2,26 @@ require("dotenv").config();
 const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  name: "shar-live",
-  execute: async (message, value1, value2) => {
+  name: "live",
+  execute: async (message, command) => {
+    session = command[command.length - 1].toLowerCase();
+
     // ตรวจสอบว่าผู้ใช้ที่ส่งข้อความมาเป็นผู้ใช้จริงหรือไม่
     if (!message.author) return;
 
     const channel = message.guild.channels.cache.get(process.env.CHANNEL_FIND_FRIEND);
     // const channel = message.guild.channels.cache.get(process.env.CHANNEL_TEST);
-    
+
     if (!channel) return console.error("Invalid channel ID");
 
-    if (value2 != "") {
-      value2 = value2.replace("/clip", "/Clip");
+    if (message.attachments.size > 0) {
 
+      const attachment = message.attachments.first();
+
+      if (!attachment.contentType.includes('image')) {
+        return console.error("ไม่มีรูปแนบมา");
+      }
+      
       // สร้าง embed
       const exampleEmbed = new EmbedBuilder()
         .setColor(0xeb9b34)
@@ -23,7 +30,7 @@ module.exports = {
           "https://www.tiktok.com/@valkillerchannel/live?enter_from_merge=share&enter_method=share_copy_link"
         )
         .setAuthor({
-          name: "Valkiller Channel",
+          name: "Tiktok Valkiller Channel",
           iconURL:
             "https://cdn.discordapp.com/attachments/1136706677748531240/1215354184422133880/LOGO_2023.png?ex=65fc71c9&is=65e9fcc9&hm=f28ee0c0f617f4805cc55759c7bc182135d714f55c6465fd26e852edddb18a10&",
           url: "https://www.tiktok.com/@valkillerchannel?is_from_webapp=1&sender_device=pc",
@@ -34,10 +41,16 @@ module.exports = {
           { name: 'เนื้อเรื่องทุกวัน', value: 'ส.', inline: true },
           { name: 'เวลา', value: '20:30 - 23:00', inline: true },
         )
-        .setImage(value2)
+        .setImage(attachment.url)
+
+        if(session != "") {
+          exampleEmbed.addFields({ name: 'Session', value: `\`\`\`${session}\`\`\``},)
+        }
 
       // ส่ง embed กลับไปยังผู้ใช้ที่ส่งข้อความมา
-      channel.send({ embeds: [exampleEmbed] });
+      channel.send({ content: `@everyone`, embeds: [exampleEmbed] });
+    } else {
+      return console.error("ข้อมูลไม่ครบถ้วน");
     }
   },
 };

@@ -29,19 +29,9 @@ module.exports = (client) => {
       if (!message.content.startsWith(prefix) || message.author.bot) return;
 
       const args = message.content.slice(prefix.length).split(/ +/);
-      const command1 = args.shift();
-      let command2 = "";
-      let command3 = "";
-
-      if (args.length >= 1) {
-        command2 = args[0];
-      }
-      if (args.length >= 2) {
-        command3 = args.slice(1).join(" ");
-      }
-
+      
       //Command
-      const command = commands.find((cmd) => cmd.name === command1.toLowerCase());
+      const commandfind = commands.find((cmd) => cmd.name === args[0].toLowerCase());
 
       //Check Role
       const roleIdToCheck = '838009799437189121'; // Role ID ที่ต้องการตรวจสอบ
@@ -49,13 +39,19 @@ module.exports = (client) => {
       const roles = member.roles.cache;
       const hasRole = roles.has(roleIdToCheck);
 
-      const validCommands = ["test", "shar-live", "shar-live-session", "vote", "bot-status", "create-data"];
+      const validCommands = [
+        "test",
+        "vote",
+        "status",
+        "create",
+        "live"
+      ];
 
-      if (command) {
+      if (commandfind) {
         if(hasRole) {
-          command.execute(message, command1, command2, command3);
-        } else if(!validCommands.includes(command1.toLowerCase())) {
-          command.execute(message, command1, command2, command3);
+          commandfind.execute(message, args);
+        } else if(!validCommands.includes(args[0].toLowerCase())) {
+          commandfind.execute(message, args);
         } else {
           message.reply(
             `คำสั่งผิดโปรดตรวจสอบที่นี้ 👉<#${process.env.CHANNEL_MANUAL_COMMAND}>👈`

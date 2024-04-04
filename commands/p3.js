@@ -5,14 +5,14 @@ const { cardSkillArmPoint } = require('../utils/cardskillarmpoint');
 
 module.exports = {
   name: 'p3',
-  execute: async (message, value1, value2, value3) => {
-    value1 = value1.toLowerCase();
-    value2 = value2.toLowerCase();
-    value3 = value3.toLowerCase();
+  execute: async (message, command) => {
+    const game = command[0].toLowerCase();
+    const mode = command[1].toLowerCase();
+    const search = command.slice(2).join(' ').toLowerCase();
     
-    if (value2 == "gh" || value2 == "va") {
-      return await keyQuest(message, value1, value2, value3);
-    } else if (value2 == "skillarmor") {
+    if (mode == "gh" || mode == "va") {
+      return await keyQuest(message, game, mode, search);
+    } else if (mode == "skillarmor") {
       const filePathSearchskillarmor = path.join(__dirname, '../models/datasearchskillarmor.json');
       const filePathSkillarmor = path.join(__dirname, '../models/dataskillarmor.json');
 
@@ -22,7 +22,7 @@ module.exports = {
         const searchSkilArmor = convertJsonSearchskillarmor.searchSkilArmorP3;
 
         for (const data of searchSkilArmor) {
-          if (value3 === data.name.toLowerCase()) {
+          if (search === data.name.toLowerCase()) {
             const rawdataSkillarmor = await fs.promises.readFile(filePathSkillarmor, 'utf-8');
             const convertJsonSkillarmor = JSON.parse(rawdataSkillarmor);
             const skilArmor = convertJsonSkillarmor.skilArmorP3;

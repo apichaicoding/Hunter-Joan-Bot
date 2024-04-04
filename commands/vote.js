@@ -22,7 +22,7 @@ module.exports = {
       )
 
     // ส่ง embed กลับไปยังผู้ใช้ที่ส่งข้อความมา
-    const sentMessage = await channel.send({ embeds: [exampleEmbed] });
+    const sentMessage = await channel.send({ content: `@everyone` , embeds: [exampleEmbed] });
 
     // เพิ่มรีแอคชั่นในข้อความ
     for (let i = 1; i <= 8; i++) {

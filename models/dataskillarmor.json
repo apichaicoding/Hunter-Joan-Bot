@@ -712,6 +712,17 @@
     ],
     "skilArmorP3": [
       {
+        "name": "Artillery",
+        "skill_name": ["Artillery King", "Artillery Novice"],
+        "skill_desc": ["เพิ่มพลังอย่างมาก Ballista, Cannon, Crang, Gunlance Shots และ Wyvern Fire", "เพิ่มพลัง Ballista, Cannon, Crang, Gunlance Shots และ Wyvern Fire"],
+        "skill_point": ["+15", "+10"]
+      }, {
+        "name": "Attack",
+        "skill_name": ["Attack Up (L)", "Attack Up (M)", "Attack Up (S)", "Attack Down (S)", "Attack Down (M)", "Attack Down (L)"],
+        "skill_desc": ["เพิ่มพลังโจมตีขนาดใหญ่", "เพิ่มพลังโจมตีขนาดกลาง", "เพิ่มพลังโจมตีขนาดเล็ก", "ลดพลังโจมตีขนาดเล็ก", "ลดพลังโจมตีขนาดกลาง", "ลดพลังโจมตีขนาดใหญ่"],
+        "skill_point": ["+20", "+15", "+10", "-10", "-15", "-20"]
+      },
+      {
         "name": "Health",
         "skill_name": ["Health +50", "Health +20", "Health -10", "Health -30"],
         "skill_desc": ["เพิ่มเลือด 50 หน่วย", "เพิ่มเลือด 20 หน่วย", "ลดเลือด 10 หน่วย", "ลดเลือด 30 หน่วย"],
@@ -721,11 +732,6 @@
         "skill_name": ["Recovery Spd +2", "Recovery Spd +1", "Recovery Spd -1", "Recovery Spd -2"],
         "skill_desc": ["แถบเลือดสีแดงเพิ่มไวสุด", "แถบเลือดสีแดงเพิ่มไว", "แถบเลือดสีแดงเพิ่มช้า", "แถบเลือดสีแดงเพิ่มช้าสุด"],
         "skill_point": ["+15", "+10", "-10", "-15"]
-      }, {
-        "name": "Attack",
-        "skill_name": ["Attack Up (L)", "Attack Up (M)", "Attack Up (S)", "Attack Down (S)", "Attack Down (M)", "Attack Down (L)"],
-        "skill_desc": ["เพิ่มพลังโจมตีขนาดใหญ่", "เพิ่มพลังโจมตีขนาดกลาง", "เพิ่มพลังโจมตีขนาดเล็ก", "ลดพลังโจมตีขนาดเล็ก", "ลดพลังโจมตีขนาดกลาง", "ลดพลังโจมตีขนาดใหญ่"],
-        "skill_point": ["+20", "+15", "+10", "-10", "-15", "-20"]
       }, {
         "name": "Defense",
         "skill_name": ["Defense Up (L)", "Defense Up (M)", "Defense Up (S)", "Defense Down (S)", "Defense Down (M)", "Defense Down (L)"],
@@ -776,11 +782,6 @@
         "skill_name": ["Element Atk Up", "Element Atk Down"],
         "skill_desc": ["การโจมตีธาตุเพิ่มขึ้น", "การโจมตีธาตุลดลง"],
         "skill_point": ["+10", "-10"]
-      }, {
-        "name": "Artillery",
-        "skill_name": ["Artillery King", "Artillery Novice"],
-        "skill_desc": ["เพิ่มพลังอย่างมาก Ballista, Cannon, Crang, Gunlance Shots และ Wyvern Fire", "เพิ่มพลัง Ballista, Cannon, Crang, Gunlance Shots และ Wyvern Fire"],
-        "skill_point": ["+15", "+10"]
       }, {
         "name": "Sheathing",
         "skill_name": ["Quick Sheathe"],
