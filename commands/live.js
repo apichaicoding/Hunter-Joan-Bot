@@ -43,7 +43,7 @@ module.exports = {
         )
         .setImage(attachment.url)
 
-        if(session != "") {
+        if(session != "" && command.length != 1) {
           exampleEmbed.addFields({ name: 'Session', value: `\`\`\`${session}\`\`\``},)
         }
 
