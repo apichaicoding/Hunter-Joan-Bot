@@ -10,67 +10,109 @@ module.exports = {
         // ตรวจสอบว่าผู้ใช้ที่ส่งข้อความมาเป็นผู้ใช้จริงหรือไม่
         if (!message.author) return;
 
-        const filePathSearchskillarmor = path.join(__dirname, '../models/datasearchskillarmor.json');
-        const filePathSkillarmor = path.join(__dirname, '../models/dataskillarmor.json');
+        // ------------------------ search & skil armor ------------------------
+        // const filePathSearchskillarmor = path.join(__dirname, '../models/datasearchskillarmor.json');
+        // const filePathSkillarmor = path.join(__dirname, '../models/dataskillarmor.json');
 
-        const rawdataSearchskillarmor = await fs.promises.readFile(filePathSearchskillarmor, 'utf-8');
-        const convertJsonSearchskillarmor = JSON.parse(rawdataSearchskillarmor);
-        const searchSkilArmor = convertJsonSearchskillarmor.searchSkilArmorP3;
+        // const rawdataSearchskillarmor = await fs.promises.readFile(filePathSearchskillarmor, 'utf-8');
+        // const convertJsonSearchskillarmor = JSON.parse(rawdataSearchskillarmor);
+        // const searchSkilArmor = convertJsonSearchskillarmor.searchSkilArmorNow;
 
-        const rawdataSkillarmor = await fs.promises.readFile(filePathSkillarmor, 'utf-8');
-        const convertJsonSkillarmor = JSON.parse(rawdataSkillarmor);
-        const skilArmor = convertJsonSkillarmor.skilArmorP3;
+        // const rawdataSkillarmor = await fs.promises.readFile(filePathSkillarmor, 'utf-8');
+        // const convertJsonSkillarmor = JSON.parse(rawdataSkillarmor);
+        // const skilArmor = convertJsonSkillarmor.skilArmorNow;
 
-        // กำหนดชื่อคอลเลกชันและเอกสารที่ต้องการบันทึก
-        const collectionName = 'p3';
-        const skillArmorDoc = 'skillarmor';
-        const searchSkillArmorDoc = 'search-skillarmor';
+        // // กำหนดชื่อคอลเลกชันและเอกสารที่ต้องการบันทึก
+        // const collectionName = 'now';
+        // const skillArmorDoc = 'skillarmor';
+        // const searchSkillArmorDoc = 'search-skillarmor';
+        // let count = 0;
         
-        // ข้อมูลที่ต้องการบันทึกลงใน Firestore
-        for (const data of skilArmor) {
-          const skillArmorData = {};
-          const skills = [];
+        // // ข้อมูลที่ต้องการบันทึกลงใน Firestore
+        // for (const data of skilArmor) {
+        //   const skillArmorData = {};
+        //   const skills = [];
         
-          for (let i = 0; i < data.skill_name.length; i++) {
-            skills.push({ name: data.skill_name[i], description: data.skill_desc[i], score: data.skill_point[i] });
-          }
+        //   for (let i = 0; i < data.skill_desc.length; i++) {
+        //     skills.push({ name: "", description: data.skill_desc[i], score: data.skill_point[i] });
+        //   }
         
-          skillArmorData[`${data.name.toLowerCase()}`] = {
-            name: data.name,
-            image: "",
-            description: "",
-            skill: skills,
-          };
+        //   const fieldName = data.name.toLowerCase().replace(/[*~/\[\].]/g, '-');
+        //   skillArmorData[fieldName] = {
+        //     name: data.name,
+        //     image: "",
+        //     description: "",
+        //     skill: skills,
+        //   };
         
-          try {
-            await db.collection(collectionName).doc(skillArmorDoc).update(skillArmorData);
-            console.log(`บันทึกข้อมูล ${data.name} เรียบร้อยแล้ว`);
-          } catch (err) {
-            console.error(`เกิดข้อผิดพลาดในการบันทึกข้อมูล ${data.name}: `, err);
-          }
-        }
+        //   try {
+        //     await db.collection(collectionName).doc(skillArmorDoc).update(skillArmorData);
+        //     count++;
+        //     console.log(`บันทึกลำดับที่ ${count}: ${fieldName}`);
+        //   } catch (err) {
+        //     console.error(`เกิดข้อผิดพลาดในการบันทึกข้อมูล`, err);
+        //   }
+
+        // }
+
+        // try {
+        //   const docRef = db.collection(collectionName).doc(skillArmorDoc);
+        //   const docSnapshot = await docRef.get();
         
-        console.log(`ข้อมูลทั้งหมด ${skilArmor.length} เสร็จสิ้น`);
+        //   if (docSnapshot.exists) {
+        //     const data = docSnapshot.data();
+        //     const docCount = Object.keys(data).length;
+        //     if (docCount === count) {
+        //       console.log(`จำนวนเอกสารใน Firestore (${docCount}) เท่ากับจำนวนที่บันทึก (${count})`);
+        //     } else {
+        //       console.log(`มีปัญหา! จำนวนเอกสารใน Firestore (${docCount}) ไม่เท่ากับจำนวนที่บันทึก (${count})`);
+        //     }
+        //   } else {
+        //     console.log('ไม่พบเอกสารที่ต้องการ');
+        //   }
+        // } catch (error) {
+        //   console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+        // }
       
-        // const searchSkillArmorData = {
-        //   "attack": "attack",
-        //   "attack up (l)": "attack",
-        //   "attack up (m)": "attack",
-        //   "attack up (s)": "attack",
-        //   "attack down (s)": "attack",
-        //   "attack down (m)": "attack",
-        //   "attack down (l)": "attack",
-        // };
-
         // // บันทึกข้อมูล searchskillarmor
-        // const searchSkillArmorRef = db.collection(collectionName).doc(searchSkillArmorDoc);
-        // searchSkillArmorRef.update(searchSkillArmorData)
-        // .then(() => {
-        //   console.log('บันทึกข้อมูล searchskillarmor เรียบร้อยแล้ว');
-        // })
-        // .catch(err => {
-        //   console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล searchskillarmor:', err);
-        // });
+        // for (const data of searchSkilArmor) {
+        //   const skillArmorData = {};
+
+        //   const fieldName = data.name.toLowerCase().replace(/[*~/\[\].]/g, '-');
+        //   skillArmorData[fieldName] = {
+        //     name: fieldName,
+        //     value: data.value,
+        //   };
+
+        //   try {
+        //     await db.collection(collectionName).doc(searchSkillArmorDoc).update(skillArmorData);
+        //     count++;
+        //     console.log(`บันทึกลำดับที่ ${count}: ${fieldName}`);
+        //   } catch (err) {
+        //     console.error(`เกิดข้อผิดพลาดในการบันทึกข้อมูล`, err);
+        //   }
+
+        // }
+
+        // try {
+        //   const docRef = db.collection(collectionName).doc(searchSkillArmorDoc);
+        //   const docSnapshot = await docRef.get();
+        
+        //   if (docSnapshot.exists) {
+        //     const data = docSnapshot.data();
+        //     console.log(data);
+        //     const docCount = Object.keys(data).length;
+        //     if (docCount === count) {
+        //       console.log(`จำนวนเอกสารใน Firestore (${docCount}) เท่ากับจำนวนที่บันทึก (${count})`);
+        //     } else {
+        //       console.log(`มีปัญหา! จำนวนเอกสารใน Firestore (${docCount}) ไม่เท่ากับจำนวนที่บันทึก (${count})`);
+        //     }
+        //   } else {
+        //     console.log('ไม่พบเอกสารที่ต้องการ');
+        //   }
+        // } catch (error) {
+        //   console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', error);
+        // }
 
       } catch (error) {
         console.error('พบข้อผิดพลาด:', error);

@@ -4,12 +4,12 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
   name: "live",
   execute: async (message, command) => {
-    session = command[command.length - 1].toLowerCase();
+    session = command[command.length - 1];
 
     // ตรวจสอบว่าผู้ใช้ที่ส่งข้อความมาเป็นผู้ใช้จริงหรือไม่
     if (!message.author) return;
 
-    const channel = message.guild.channels.cache.get(process.env.CHANNEL_FIND_FRIEND);
+    const channel = message.guild.channels.cache.get(process.env.CHANNEL_SHOW_COOL);
     // const channel = message.guild.channels.cache.get(process.env.CHANNEL_TEST);
 
     if (!channel) return console.error("Invalid channel ID");
@@ -35,11 +35,13 @@ module.exports = {
             "https://cdn.discordapp.com/attachments/1136706677748531240/1215354184422133880/LOGO_2023.png?ex=65fc71c9&is=65e9fcc9&hm=f28ee0c0f617f4805cc55759c7bc182135d714f55c6465fd26e852edddb18a10&",
           url: "https://www.tiktok.com/@valkillerchannel?is_from_webapp=1&sender_device=pc",
         })
-        .setDescription("⬆️ อย่าลืมไปโหวตกันด้วยไลฟ์ครั้งถัดไปภาคไร")
+        // .setDescription("⬆️ อย่าลืมไปโหวตกันด้วยไลฟ์ครั้งถัดไปภาคไร")
         .addFields(
-          { name: 'ล่าแย้ทุกวัน', value: 'จ. - พฤ.', inline: true },
-          { name: 'เนื้อเรื่องทุกวัน', value: 'ส.', inline: true },
-          { name: 'เวลา', value: '20:30 - 23:00', inline: true },
+          { name: 'จันทร์', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
+          { name: 'อังคาร', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
+          { name: 'พุทธ', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
+          { name: 'พฤหัสบดี', value: 'เล่นเกม (คนในดิสเสนอ)\nเวลา\n20:30 - 23:00', inline: true },
+          { name: 'เสาร์', value: 'เกมเนื้อเรื่อง (ซีรีย์ Final Fantasy)\nเวลา\n20:30 - 23:00', inline: true },
         )
         .setImage(attachment.url)
 

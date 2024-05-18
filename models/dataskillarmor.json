@@ -474,7 +474,7 @@
         "skill_desc": ["ช่วยกัน KO 1 ครั้งหากเลือดมากกว่า 65"],
         "skill_point": ["+10"]
       }, {
-        "name": "Guts",
+        "name": "Map",
         "skill_name": ["FarSight", "No Map"],
         "skill_desc": ["แสดงแผนที่อัตโนมัติ", "ไม่แสดงแผนที่ *แม้มีไอเทมแผนที่ก็ตาม"],
         "skill_point": ["+10", "-10"]
