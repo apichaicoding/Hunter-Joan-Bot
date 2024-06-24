@@ -4,8 +4,6 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
   name: "live",
   execute: async (message, command) => {
-    session = command[command.length - 1];
-
     // ตรวจสอบว่าผู้ใช้ที่ส่งข้อความมาเป็นผู้ใช้จริงหรือไม่
     if (!message.author) return;
 
@@ -25,7 +23,7 @@ module.exports = {
       // สร้าง embed
       const exampleEmbed = new EmbedBuilder()
         .setColor(0xeb9b34)
-        .setTitle("มาไลฟ์กันเถอะ กดดูไลฟ์ตรงนี้ได้เลย")
+        .setTitle("มาไลฟ์กันเถอะ")
         .setURL(
           "https://www.tiktok.com/@valkillerchannel/live?enter_from_merge=share&enter_method=share_copy_link"
         )
@@ -37,20 +35,15 @@ module.exports = {
         })
         // .setDescription("⬆️ อย่าลืมไปโหวตกันด้วยไลฟ์ครั้งถัดไปภาคไร")
         .addFields(
-          { name: 'จันทร์', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
-          { name: 'อังคาร', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
-          { name: 'พุทธ', value: 'ล่าแย้ (คนในดิสโหวต)\nเวลา\n20:30 - 23:00', inline: true },
-          { name: 'พฤหัสบดี', value: 'เล่นเกม (คนในดิสเสนอ)\nเวลา\n20:30 - 23:00', inline: true },
-          { name: 'เสาร์', value: 'เกมเนื้อเรื่อง (ซีรีย์ Final Fantasy)\nเวลา\n20:30 - 23:00', inline: true },
+          { name: 'จ. - พ.', value: 'ล่าแย้\nเวลา 20:30 - 22:30', inline: true },
+          { name: 'พฤ.', value: 'เสนอเกม\nเวลา 20:30 - 22:30', inline: true },
+          { name: 'ส.', value: 'เกมเนื้อเรื่อง\nเวลา 20:30 - 22:30', inline: true },
         )
         .setImage(attachment.url)
 
-        if(session != "" && command.length != 1) {
-          exampleEmbed.addFields({ name: 'Session', value: `\`\`\`${session}\`\`\``},)
-        }
-
       // ส่ง embed กลับไปยังผู้ใช้ที่ส่งข้อความมา
       channel.send({ content: `@everyone`, embeds: [exampleEmbed] });
+
     } else {
       return console.error("ข้อมูลไม่ครบถ้วน");
     }

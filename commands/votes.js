@@ -2,7 +2,7 @@ require("dotenv").config();
 const { PollLayoutType } = require("discord.js");
 
 module.exports = {
-  name: "vote",
+  name: "votes",
   execute: async (message, command) => {
 
     // ตรวจสอบว่าผู้ใช้ที่ส่งข้อความมาเป็นผู้ใช้จริงหรือไม่
@@ -14,18 +14,12 @@ module.exports = {
     if (!channel) return console.error("Invalid channel ID");
 
     await channel.send({
-      content: `@everyone\nเลือกภาคแล้วกด "โหวต" ด้านล่าง` ,
+      content: `@everyone\nเลือกเกมที่อยากให้ไลฟ์\nสามารถบอกได้ถ้าอยากให้เพิ่ม\nกด "โหวต" ด้านล่าง` ,
       poll: {
-        question: {text: "🎮 วันนี้ล่าแย่ภาคไหนดี 🎮"},
+        question: {text: "🎮 วันนี้เล่นตามขอ 🎮"},
         answers : [
-          { text: 'MHF1 บน PPSSPP', emoji: '1️⃣'},
-          { text: 'MHFU บน PPSSPP', emoji: '2️⃣'},
-          { text: 'MHP3 บน PPSSPP', emoji: '3️⃣'},
-          { text: 'MH3U บน Citra', emoji: '4️⃣'},
-          { text: 'MHFZ บน PC', emoji: '5️⃣'},
-          { text: 'MHXX บน Citra', emoji: '6️⃣'},
-          { text: 'MHWI บน Steam', emoji: '7️⃣'},
-          { text: 'MHRS บน Steam', emoji: '8️⃣'},
+          { text: 'ROV', emoji: '1️⃣'},
+          { text: 'PUBG Mobile', emoji: '2️⃣'},
         ],
         allowMultiselect: false,
         duration: 3,
